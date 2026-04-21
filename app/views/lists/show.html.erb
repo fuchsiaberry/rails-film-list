@@ -1,0 +1,24 @@
+<h1><%= @list.name %></h1>
+
+<h3>Movies:</h3>
+<p>
+  <% @list.bookmarks.each do |bookmark| %>
+    <ul>
+      <li>
+        <% movie = Movie.find_by_id(bookmark.movie_id) %>
+        <%= movie.title  %> - <%= bookmark.comment %>
+        <%=
+          link_to "🗑️",
+          bookmark_path(bookmark),
+          data: {
+            turbo_method: :delete, turbo_confirm: "Are you sure?"
+          }
+        %>
+      </li>
+    </ul>
+  <% end %>
+</p>
+
+
+
+<%= link_to "Add Movie", new_list_bookmark_path(@list), class: "btn btn-outline-primary" %>
